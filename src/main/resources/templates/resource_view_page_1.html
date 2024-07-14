@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:if="${form == 'categories'}">
+    <form th:action="@{/data_controller/resource_1}" method="get" th:object="${categories}">
+        <label>
+            <input type="text" th:name="name" placeholder="type category name"/>
+        </label>
+        <input type="submit" value="Filtrate"/>
+    </form>
+</div>
+
+<div th:if="${form == 'products'}">
+<form th:action="@{/data_controller/resource_4}" method="get" th:object="${products}">
+    <label>
+        <input type="text" th:name="name" placeholder="type product name" />
+    </label>
+    <input type="submit" value="Filtrate"/>
+</form>
+</div>
+
+
+
+<div th:each="category : ${categories}">
+    <p>id: <b th:text="${category.getId()}"></b></p>
+    <p>name: <b th:text="${category.getName()}"></b></p>
+</div>
+
+<div th:each="product : ${products}">
+    <p>Id: <b th:text="${product.getId()}"></b></p>
+    <p>Name: <b th:text="${product.getName()}"></b></p>
+    <p>Price: <b th:text="${product.getPrice()}"></b></p>
+</div>
+
+</body>
+</html>
+
