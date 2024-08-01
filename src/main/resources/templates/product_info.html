@@ -10,7 +10,8 @@
 <p>Product name: <b th:text="${products.name}"></b></p>
 <p>Product price <b th:text="${products.price}"></b></p>
 <p>Product category: <b th:text="${products.category.name}"></b></p>
-<p>Product options: <b th:text="${products.category.options}"></b></p>
-
+<div th:each="option : ${options}">
+    <p>Product options: <b th:text="${option.name}"></b></p>
+</div>
 </body>
 </html>

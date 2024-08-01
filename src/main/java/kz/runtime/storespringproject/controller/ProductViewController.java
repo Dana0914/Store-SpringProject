@@ -2,8 +2,10 @@ package kz.runtime.storespringproject.controller;
 
 
 import kz.runtime.storespringproject.entities.Category;
+import kz.runtime.storespringproject.entities.Options;
 import kz.runtime.storespringproject.entities.Product;
 import kz.runtime.storespringproject.service.CategoryService;
+import kz.runtime.storespringproject.service.OptionsService;
 import kz.runtime.storespringproject.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,6 +22,7 @@ import java.util.List;
 public class ProductViewController {
     private final CategoryService categoryService;
     private final ProductService productService;
+    private final OptionsService optionsService;
 
     @GetMapping("/get/form")
     public Object getProductCreate(Model model) {
@@ -52,6 +56,9 @@ public class ProductViewController {
     public Object getProductInfo(@PathVariable("id") Long id, Model model) {
         Product productById = productService.findProductById(id);
         model.addAttribute("products", productById);
+        Category category = categoryService.findCategoryById(productById.getCategory().getId());
+        Set<Options> options = optionsService.findOptionsById(category.getId());
+        model.addAttribute("options", options);
         return "product_info";
     }
 
