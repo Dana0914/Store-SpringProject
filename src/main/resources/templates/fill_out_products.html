@@ -2,16 +2,20 @@
 <html xmlns: th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Fill out form</title>
 </head>
 <body>
 
 <form th:action="@{/products/edit}" method="post" th:object="${products}">
-    <label>Id:<input type="text" th:field="*{id}" placeholder="type id" /></label>
-    <label>Name:<input type="text" th:field="*{name}" placeholder="type product name" /></label>
-    <label>Price<input type="number" th:field="*{price}" placeholder="type product price" /></label>
-    <label>Category: <input type="number" th:field="*{category.id}" placeholder="type category type" /></label>
-    <input type="submit" value="submit">
+    <br> <label for="id">Id:</label>
+    <input type="text" id="id"  th:field="*{id}" placeholder="type id"/><br/>
+    <br> <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="type name" /><br/>
+    <br> <label for="price">Price:</label>
+    <input type="number" id="price" th:field="*{price}" placeholder="type price" /><br/>
+    <br> <label for="category">Category:</label>
+    <input type="number" id="category" th:field="*{category.id}" placeholder="type category" /><br/>
+    <br><input type="submit" value="Submit"><br/>
 </form>
 
 

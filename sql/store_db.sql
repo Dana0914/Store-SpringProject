@@ -124,8 +124,8 @@ VALUES (1, 'henry08@gmail.com', 'sha-506affbd-kyldsv223', 'henry', 'hetz'),
        (2, 'saraS566@hotmail.com', 'klj6-gb5d-bng5b', 'sara', 'konnor');
 
 INSERT INTO orders (users_id, items_id, status, order_date, address)
-VALUES (1, 2, 1, 2024-7-18, 'New Valley 18 CA'),
-       (2, 2, 1, 2024-6-30, 'Kennington highway 699');
+VALUES (1, 2, 1, '2024-7-18', 'New Valley 18 CA'),
+       (2, 2, 1, '2024-6-30', 'Kennington highway 699');
 
 INSERT INTO orders_items (order_id, items_id)
 VALUES (1, 2),

@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import java.util.List;
 
 
 @Repository
 public interface OptionRepository extends JpaRepository<Options, Integer> {
-    @Query(name = "SELECT name FROM options WHERE options.category.id = :id", nativeQuery = true)
-    Set<Options> findOptionsByCategoryId(@Param("id") Long id);
+    @Query(value = "SELECT o.* FROM options o WHERE o.category_id = :id", nativeQuery = true)
+    List<Options> findOptionsByCategoryId(@Param("id") Long id);
 }

@@ -6,7 +6,6 @@ import kz.runtime.storespringproject.repos.OptionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class OptionsService {
@@ -16,7 +15,7 @@ public class OptionsService {
         this.optionRepository = optionRepository;
     }
 
-    public Set<Options> findOptionsById(Long id) {
+    public List<Options> findOptionsById(Long id) {
         return optionRepository.findOptionsByCategoryId(id);
     }
 

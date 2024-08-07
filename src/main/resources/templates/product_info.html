@@ -6,12 +6,28 @@
 </head>
 <body>
 
-<p>Product id: <b th:text="${products.id}"></b></p>
-<p>Product name: <b th:text="${products.name}"></b></p>
-<p>Product price <b th:text="${products.price}"></b></p>
-<p>Product category: <b th:text="${products.category.name}"></b></p>
-<div th:each="option : ${options}">
-    <p>Product options: <b th:text="${option.name}"></b></p>
+<p>Name <span th:text="${products.name}"></span></p>
+<p>Price <span th:text="${products.price}"></span></p>
+<p>Category: <span th:text="${category.name}"></span></p>
+
+
+
+<div th:each="option, statsOption : ${options}">
+    <div th:each="value, statsValue : ${values}">
+        <p th:if="${statsOption.index} == ${statsValue.index}">
+            Options: <span th:text="${option.name} + ' : ' + ${value.name}"></span>
+        </p>
+    </div>
 </div>
+
+<div th:each="review : ${reviews}">
+    <p>User: <span th:text="${review.users.firstName + ' ' + review.users.lastName}"></span></p>
+    <p>Review: <span th:text="${review.review}"></span></p>
+    <p>Rating: <span th:text="${review.rating}"></span></p>
+</div>
+
+
+
+
 </body>
 </html>

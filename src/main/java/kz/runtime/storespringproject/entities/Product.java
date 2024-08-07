@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -30,7 +31,7 @@ public class Product {
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(mappedBy = "product")
-    private List<Values> values;
+    private Set<Values> values;
 
     @ToString.Exclude
     @JsonIgnore
