@@ -52,6 +52,7 @@ public class ProductViewController {
         model.addAttribute("products", product);
 
         return "result";
+
     }
 
     @GetMapping("/info/{id}")
