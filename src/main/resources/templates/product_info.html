@@ -20,11 +20,13 @@
     </div>
 </div>
 
+<p>Average Rating: <span th:text="${averageRating}"></span></p>
+
 
 <div th:each="review : ${reviews}">
     <p>User: <span th:text="${review.users.firstName + ' ' + review.users.lastName}"></span></p>
-    <p>Review: <span th:text="${review.review}"></span></p>
-    <p>Rating: <span th:text="${review.rating}"></span></p>
+    <p>Reviews: <span th:text="${review.review}"></span></p>
+
 
 </div>
 

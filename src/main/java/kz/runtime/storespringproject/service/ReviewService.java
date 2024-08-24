@@ -17,10 +17,14 @@ public class ReviewService {
     }
 
 
-    public List<Review> findReviewById(Long id) {
-        return reviewRepository.findReviewById(id);
+    public Double getReviewsWithAverageRating() {
+        return reviewRepository.getReviewByAverageRating();
     }
 
+    public List<Review> findReviewByProductId(Long id) {
+        return reviewRepository.findReviewsByProductId(id);
+
+    }
 
 
 

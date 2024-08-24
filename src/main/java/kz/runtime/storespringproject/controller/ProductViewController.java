@@ -69,8 +69,11 @@ public class ProductViewController {
         List<Values> values = valuesService.findValuesByOptionId(productById.getId());
         model.addAttribute("values", values);
 
-        List<Review> reviews = reviewService.findReviewById(productById.getId());
-        model.addAttribute("reviews", reviews);
+        Double averageRating = reviewService.getReviewsWithAverageRating();
+        model.addAttribute("averageRating", averageRating);
+
+        List<Review> reviewByProductId = reviewService.findReviewByProductId(productById.getId());
+        model.addAttribute("reviews", reviewByProductId);
 
         return "product_info";
     }
