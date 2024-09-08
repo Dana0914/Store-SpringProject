@@ -6,7 +6,7 @@ import kz.runtime.storespringproject.repos.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class ProductService {
@@ -19,8 +19,7 @@ public class ProductService {
         return productRepository.findAll();
     }
     public Product findProductById(Long id) {
-        Optional<Product> byId = productRepository.findById(id);
-        return byId.orElse(null);
+        return productRepository.findProductById(id);
     }
     public Product findProductByName(String name) {
         return productRepository.findProductByName(name);

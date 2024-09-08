@@ -21,6 +21,7 @@ public class ProductViewController {
     private final OptionsService optionsService;
     private final ValuesService valuesService;
     private final ReviewService reviewService;
+    private final UsersService usersService;
 
     @GetMapping("/get/form")
     public Object getProductCreate(Model model) {
@@ -75,6 +76,7 @@ public class ProductViewController {
         List<Review> reviewByProductId = reviewService.findReviewByProductId(productById.getId());
         model.addAttribute("reviews", reviewByProductId);
 
+
         return "product_info";
     }
 
@@ -88,4 +90,33 @@ public class ProductViewController {
     }
 
 
+    @GetMapping("/review/form")
+    public String getReviewForm(Model model) {
+
+        model.addAttribute("review", new Review());
+
+        return "review_form";
+    }
+
+    @PostMapping("/review/info")
+    public Object createReview(@ModelAttribute("review") Review review,
+                               Model model) {
+
+
+        Product existingProduct = productService.findProductById(review.getProduct().getId());
+        Users existingUser = usersService.findUserById(review.getUsers().getId());
+
+        review.setProduct(existingProduct);
+        review.setUsers(existingUser);
+
+
+        reviewService.saveReview(review);
+
+        model.addAttribute("review", review);
+        model.addAttribute("product", existingProduct);
+        model.addAttribute("user", existingUser);
+
+
+        return "review_info";
+    }
 }

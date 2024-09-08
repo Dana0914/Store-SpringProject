@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review</title>
+
+
+    <form th:action="@{/products/review/info}" method="post" th:object="${review}">
+        <br> <label for="product">Product:</label>
+        <input type="number" id="product"  th:field="*{product.id}"  placeholder="type product ID" /><br/>
+
+        <br> <label for="review">Review:</label>
+        <input type="text" id="review" th:field="*{reviewText}" placeholder="type review text" /><br/>
+
+        <br> <label for="rating">Rating:</label>
+        <input type="text" id="rating" th:field="*{rating}" placeholder="type review rating" /><br/>
+
+        <br> <label for="status">Review status:</label>
+        <input type="text" id="status" th:field="*{reviewStatus}" placeholder="type review status" /><br/>
+
+        <br> <label for="users">User:</label>
+        <input type="number" id="users" th:field="*{users.id}" placeholder="type user ID" /><br/>
+        <br> <input type="submit" value="submit" />
+
+    </form>
+</head>
+<body>
+
+</body>
+</html>
