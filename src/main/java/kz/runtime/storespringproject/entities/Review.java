@@ -25,7 +25,8 @@ public class Review {
     private String reviewText;
     @Column(name = "review_status")
     @ToString.Exclude
-    private String reviewStatus;
+    @Enumerated(EnumType.STRING)
+    private ReviewStatus reviewStatus;
 
     @ToString.Exclude
     @ManyToOne

@@ -76,8 +76,7 @@ CREATE TABLE review (
     items_id int4 NOT NULL,
     rating smallint NOT NULL CHECK(rating >= 1 AND rating <= 5),
     review TEXT NOT NULL,
-    review_status VARCHAR(20) NOT NULL,
-    CHECK (review_status IN ('published', 'not published')),
+    review_status VARCHAR(30) NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY (items_id) REFERENCES items (id),
     FOREIGN KEY (users_id) REFERENCES users (id)
@@ -137,6 +136,6 @@ VALUES (1, 2),
 
 INSERT INTO review (users_id, items_id, rating, review, review_status)
 VALUES (1, 2, 4, 'very good', 'published'),
-       (2, 2, 1, 'bad', 'not published')
+       (2, 2, 1, 'bad', 'published')
 
 

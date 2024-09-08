@@ -15,8 +15,15 @@
         <br> <label for="rating">Rating:</label>
         <input type="text" id="rating" th:field="*{rating}" placeholder="type review rating" /><br/>
 
-        <br> <label for="status">Review status:</label>
-        <input type="text" id="status" th:field="*{reviewStatus}" placeholder="type review status" /><br/>
+        <br>
+        <label for="status">Status:</label>
+        <select id="status" th:field="*{reviewStatus}">
+            <option th:each="status : ${T(kz.runtime.storespringproject.entities.ReviewStatus).values()}"
+                    th:value="${status}"
+                    th:text="${status}">Select status</option>
+        </select>
+        <br/>
+
 
         <br> <label for="users">User:</label>
         <input type="number" id="users" th:field="*{users.id}" placeholder="type user ID" /><br/>
