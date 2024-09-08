@@ -22,7 +22,7 @@ public class Review {
     private int rating;
     @Column(name = "review")
     @ToString.Exclude
-    private String review;
+    private String reviewText;
     @Column(name = "review_status")
     @ToString.Exclude
     private String reviewStatus;

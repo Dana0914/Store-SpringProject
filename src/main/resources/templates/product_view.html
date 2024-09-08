@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:action="@{/products}" method="post" th:object="${products}">
+<form th:action="@{/products/create/form}" method="post" th:object="${products}">
     <br> <label for="name">Name:</label>
     <input type="text" id="name"  th:field="*{name}"  placeholder="type product name" /><br/>
 
@@ -15,6 +15,9 @@
 
     <br> <label for="category">Category:</label>
     <input type="number" id="category" th:field="*{category.id}" placeholder="type category type" /><br/>
+    <br> <input type="submit" value="submit" />
+
+
 
 </form>
 
