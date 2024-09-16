@@ -22,6 +22,7 @@ public class ProductViewController {
     private final ValuesService valuesService;
     private final ReviewService reviewService;
     private final UsersService usersService;
+    private final BasketService basketService;
 
     @GetMapping("/get/form")
     public Object getProductCreate(Model model) {
@@ -120,5 +121,38 @@ public class ProductViewController {
 
 
         return "review_info";
+    }
+
+    @PostMapping("/basket/products")
+    public Object addProductToBasket(@ModelAttribute
+            Product product, Basket basket, Users users, Model model) {
+
+        basket.setProduct(product);
+        basket.setUsers(users);
+
+        basketService.save(basket);
+
+        model.addAttribute("basket", basket);
+        model.addAttribute("products", product);
+        model.addAttribute("user", users);
+
+        return "basket_info";
+
+    }
+
+    @GetMapping("/basket/form")
+    public Object getBasketForm(Model model) {
+        model.addAttribute("basket", new Basket());
+
+        return "basket_form";
+
+    }
+
+    @GetMapping("/basket/list")
+    public Object getAllBasketProducts(Model model) {
+        List<Basket> all = basketService.findAll();
+
+        model.addAttribute("basket", all);
+        return "basket_result";
     }
 }
