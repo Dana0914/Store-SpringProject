@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products in Basket</title>
+</head>
+<body>
+
+
+<div th:each="b : ${basket}">
+    <p>Product Name: <span th:text="${b.product.name}"></span></p>
+    <p>Price: <span th:text="${b.product.price}"></span></p>
+    <p>Quantity: <span th:text="${b.quantity}"></span></p>
+
+
+    <form th:action="@{/products/basket/{id}/quantity(id=${b.product.id})}" method="post">
+        <button type="submit">+</button>
+    </form>
+
+    <form th:action="@{/products/basket/{id}(id=${b.product.id})}" method="post">
+        <button type="submit">-</button>
+    </form>
+
+</div>
+
+
+
+<p>Total: <span th:text="${totalAmount}"></span></p>
+
+
+
+</body>
+</html>

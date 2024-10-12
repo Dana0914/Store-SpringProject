@@ -25,6 +25,7 @@ public class ProductViewController {
     private final BasketService basketService;
 
     @GetMapping("/get/form")
+
     public Object getProductCreate(Model model) {
         model.addAttribute("products", new Product());
 
@@ -123,22 +124,6 @@ public class ProductViewController {
         return "review_info";
     }
 
-    @PostMapping("/basket/products")
-    public Object addProductToBasket(@ModelAttribute
-            Product product, Basket basket, Users users, Model model) {
-
-        basket.setProduct(product);
-        basket.setUsers(users);
-
-        basketService.save(basket);
-
-        model.addAttribute("basket", basket);
-        model.addAttribute("products", product);
-        model.addAttribute("user", users);
-
-        return "basket_info";
-
-    }
 
     @GetMapping("/basket/form")
     public Object getBasketForm(Model model) {
@@ -148,11 +133,56 @@ public class ProductViewController {
 
     }
 
+    @PostMapping("/basket/products")
+    public Object addProductToBasket(@ModelAttribute
+            Basket basket, Product product, Users user, Model model) {
+
+
+        basketService.save(basket);
+
+        model.addAttribute("basket", basket);
+        model.addAttribute("products", product);
+        model.addAttribute("user", user);
+
+        return "basket_info";
+
+    }
+
+
     @GetMapping("/basket/list")
     public Object getAllBasketProducts(Model model) {
         List<Basket> all = basketService.findAll();
-
         model.addAttribute("basket", all);
+
+        Long totalAmount = 0L;
+        for (Basket basket : all) {
+            totalAmount += basket.getProduct().getPrice() * basket.getQuantity();
+        }
+        model.addAttribute("totalAmount", totalAmount);
+
+        return "basket_list";
+    }
+
+    @PostMapping("/basket/{id}/quantity")
+    public String incrementQuantity(@PathVariable("id") Long id, Model model) {
+
+        Basket basket = basketService.incrementQuantityOfProductsInBasket(id);
+        model.addAttribute("basket", basket);
+
+        return "basket_result";
+
+    }
+
+    @PostMapping("/basket/{id}")
+    public String decrementQuantity(@PathVariable("id") Long id, Model model) {
+
+        Basket basket = basketService.decrementQuantityOfProductsInBasket(id);
+        model.addAttribute("basket", basket);
+
         return "basket_result";
     }
+
+
+
 }
+

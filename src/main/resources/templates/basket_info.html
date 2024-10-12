@@ -6,11 +6,12 @@
 </head>
 <body>
 
-
-<p> Name: <span th:text="${basket.product.name}"></span></p>
-<p> Price: <span th:text="${basket.product.price}"></span></p>
-<p> User: <span th:text="${basket.users.firstName + '.' + basket.users.lastName}"></span></p>
-
+<tr th:each="b : ${basket}">
+    <td th:text="${basket.product.name}"></td>
+    <td th:text="${basket.users.firstName + '.' + basket.users.lastName}"></td>
+    <td th:text="${basket.product.price}"></td>
+    <td th:text="${basket.quantity}"></td>
+    <td>
 
 
 </body>

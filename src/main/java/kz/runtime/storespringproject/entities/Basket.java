@@ -24,4 +24,6 @@ public class Basket {
     @JoinColumn(name = "items_id")
     private Product product;
 
+    private Long quantity;
+
 }

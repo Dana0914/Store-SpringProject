@@ -13,6 +13,13 @@ CREATE TABLE items (
     FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
+ALTER TABLE items
+ADD COLUMN quantity INTEGER NOT NULL DEFAULT 0;
+
+ALTER TABLE items
+    DROP COLUMN quantity;
+
+
 CREATE TABLE options (
     id       SERIAL4       NOT NULL,
     category_id int4       NOT NULL ,
@@ -69,6 +76,18 @@ CREATE TABLE basket (
     FOREIGN KEY (items_id) REFERENCES items (id)
 
 );
+
+ALTER TABLE basket
+    ADD COLUMN quantity INTEGER NOT NULL default 0;
+
+ALTER TABLE basket
+    DROP COLUMN quantity;
+
+ALTER TABLE basket
+    ADD COLUMN quantity INTEGER NOT NULL default 0;
+
+
+
 
 CREATE TABLE review (
     id SERIAL4 NOT NULL,
