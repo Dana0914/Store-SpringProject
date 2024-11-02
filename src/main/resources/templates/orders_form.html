@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Form</title>
+</head>
+<body>
+
+<form th:action="@{/products/basket/address}" method="post" th:object="${orders}">
+    <br> <label for="address">Введите адрес пользователя:</label><br>
+    <input type="text" id="address"  th:field="*{address}"  placeholder="type user address" />
+    <br>
+    <br><input type="submit" value="Оформить" /><br>
+
+</form>
+
+</body>
+</html>

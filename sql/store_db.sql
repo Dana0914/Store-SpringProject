@@ -1,3 +1,4 @@
+
 CREATE TABLE categories (
     id SERIAL4 NOT NULL,
     name VARCHAR (20) NOT NULL,
@@ -12,12 +13,6 @@ CREATE TABLE items (
     PRIMARY KEY (id),
     FOREIGN KEY (category_id) REFERENCES categories (id)
 );
-
-ALTER TABLE items
-ADD COLUMN quantity INTEGER NOT NULL DEFAULT 0;
-
-ALTER TABLE items
-    DROP COLUMN quantity;
 
 
 CREATE TABLE options (
@@ -58,6 +53,8 @@ CREATE TABLE orders (
     PRIMARY KEY(id),
     FOREIGN KEY(items_id) REFERENCES items (id)
 );
+
+
 
 CREATE TABLE orders_items (
     order_id INT4 NOT NULL,

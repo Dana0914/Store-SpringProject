@@ -2,12 +2,14 @@ package kz.runtime.storespringproject.controller;
 
 
 import kz.runtime.storespringproject.entities.*;
+import kz.runtime.storespringproject.roles.Role;
 import kz.runtime.storespringproject.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,6 +25,7 @@ public class ProductViewController {
     private final ReviewService reviewService;
     private final UsersService usersService;
     private final BasketService basketService;
+    private final OrderService orderService;
 
     @GetMapping("/get/form")
 
@@ -137,7 +140,6 @@ public class ProductViewController {
     public Object addProductToBasket(@ModelAttribute
             Basket basket, Product product, Users user, Model model) {
 
-
         basketService.save(basket);
 
         model.addAttribute("basket", basket);
@@ -154,7 +156,7 @@ public class ProductViewController {
         List<Basket> all = basketService.findAll();
         model.addAttribute("basket", all);
 
-        Long totalAmount = 0L;
+        long totalAmount = 0L;
         for (Basket basket : all) {
             totalAmount += basket.getProduct().getPrice() * basket.getQuantity();
         }
@@ -182,7 +184,28 @@ public class ProductViewController {
         return "basket_result";
     }
 
+    @GetMapping(value = "/order/form")
+    public String getOrderForm(Model model) {
+        model.addAttribute("orders", new Orders());
 
+        return "orders_form";
+    }
+
+    @PostMapping(value = "/basket/address")
+    public String addUserAddress(Model model, Orders orders, Basket basket) {
+
+        orders.setProduct(basket.getProduct());
+        orders.setUsers(basket.getUsers());
+        orders.setStatus(orders.getStatus());
+        orders.setOrderDate(orders.getOrderDate());
+        orders.setAddress(orders.getAddress());
+
+        orderService.save(orders);
+
+        model.addAttribute("orders", orders);
+
+        return "order_page";
+    }
 
 }
 

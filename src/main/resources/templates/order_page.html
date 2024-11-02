@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+</head>
+<body>
+
+<h2>Orders</h2>
+<div th:each="o: ${orders}">
+    <p>Product: <span th:text="${orders.product.name}"></span></p>
+    <p>User: <span th:text="${orders.users.firstName + '' + orders.users.lastName}"></span></p>
+</div>
+
+</body>
+</html>
