@@ -2,9 +2,9 @@ package kz.runtime.storespringproject.status;
 
 
 public enum Status {
-    PROCESSING(1),
+    CREATED(1),
     DELIVERED(2),
-    CANCELED(3);
+    CANCELLED(3);
 
     final Integer i;
 

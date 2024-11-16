@@ -24,6 +24,7 @@ public class Basket {
     @JoinColumn(name = "items_id")
     private Product product;
 
+    @Column(insertable = false, nullable = false)
     private Long quantity;
 
 }

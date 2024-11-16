@@ -20,9 +20,9 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "status")
+    @Column(name = "status", insertable = false)
     private int status;
-    @Column(name = "order_date")
+    @Column(name = "order_date", insertable = false)
     private Date orderDate;
     @Column(name = "address")
     private String address;

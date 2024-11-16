@@ -2,14 +2,14 @@ package kz.runtime.storespringproject.controller;
 
 
 import kz.runtime.storespringproject.entities.*;
-import kz.runtime.storespringproject.roles.Role;
 import kz.runtime.storespringproject.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -157,9 +157,11 @@ public class ProductViewController {
         model.addAttribute("basket", all);
 
         long totalAmount = 0L;
-        for (Basket basket : all) {
-            totalAmount += basket.getProduct().getPrice() * basket.getQuantity();
+
+        for (Basket b : all) {
+            totalAmount += b.getProduct().getPrice() * b.getQuantity();
         }
+
         model.addAttribute("totalAmount", totalAmount);
 
         return "basket_list";
@@ -191,21 +193,45 @@ public class ProductViewController {
         return "orders_form";
     }
 
-    @PostMapping(value = "/basket/address")
-    public String addUserAddress(Model model, Orders orders, Basket basket) {
+    @PostMapping(value = "/order/address")
+    public String addUserAddress(Model model, Orders orders) {
+        List<Basket> baskets = basketService.findAll();
+        List<Product> products = new ArrayList<>();
 
-        orders.setProduct(basket.getProduct());
-        orders.setUsers(basket.getUsers());
-        orders.setStatus(orders.getStatus());
-        orders.setOrderDate(orders.getOrderDate());
+        for (Basket b : baskets) {
+            products.add(b.getProduct());
+            orders.setProduct(b.getProduct());
+        }
+        for (Basket b : baskets) {
+            orders.setUsers(b.getUsers());
+        }
+
         orders.setAddress(orders.getAddress());
+        orders.setItems(products);
 
         orderService.save(orders);
 
         model.addAttribute("orders", orders);
 
-        return "order_page";
+
+        return "basket_list";
     }
+
+    @GetMapping(value = "/orders")
+    public String getOrderList(Model model) {
+        List<Orders> orders = orderService.findAll();
+        model.addAttribute("orders", orders);
+        return "orders";
+    }
+
+    @GetMapping(value = "/cart/{id}")
+    public Object clearCartItems(@PathVariable("id") long id) {
+        basketService.clearCart(id);
+        return "redirect:/products/basket/list";
+    }
+
+
+
 
 }
 

@@ -48,11 +48,17 @@ CREATE TABLE orders (
     users_id int4 NOT NULL,
     items_id int4 NOT NULL,
     status int2 NOT NULL,
-    order_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    order_date DATE NOT NULL,
     address VARCHAR(40) NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(items_id) REFERENCES items (id)
 );
+
+ALTER TABLE orders
+ALTER COLUMN status SET DEFAULT 1;
+
+ALTER TABLE orders
+    ALTER COLUMN order_date SET DEFAULT current_date;
 
 
 
@@ -75,14 +81,7 @@ CREATE TABLE basket (
 );
 
 ALTER TABLE basket
-    ADD COLUMN quantity INTEGER NOT NULL default 0;
-
-ALTER TABLE basket
-    DROP COLUMN quantity;
-
-ALTER TABLE basket
-    ADD COLUMN quantity INTEGER NOT NULL default 0;
-
+ADD COLUMN quantity int4 NOT NULL DEFAULT 1;
 
 
 
@@ -139,19 +138,15 @@ VALUES (1, 'henry08@gmail.com', 'sha-506affbd-kyldsv223', 'henry', 'hetz'),
        (2, 'saraS566@hotmail.com', 'klj6-gb5d-bng5b', 'sara', 'konnor');
 
 INSERT INTO orders (users_id, items_id, status, order_date, address)
-VALUES (1, 2, 1, '2024-7-18', 'New Valley 18 CA'),
-       (2, 2, 1, '2024-6-30', 'Kennington highway 699');
+VALUES (1, 2, 1, '2024-7-18', 'New Valley 18 CA');
 
 INSERT INTO orders_items (order_id, items_id)
-VALUES (1, 2),
-       (2, 2);
+VALUES (1, 2);
 
 INSERT INTO basket (users_id, items_id)
-VALUES (1, 2),
-       (2, 2);
+VALUES (1, 2);
 
 INSERT INTO review (users_id, items_id, rating, review, review_status)
-VALUES (1, 2, 4, 'very good', 'published'),
-       (2, 2, 1, 'bad', 'published')
+VALUES (1, 2, 4, 'very good', 'published');
 
 

@@ -64,5 +64,10 @@ public class BasketService {
         return null;
     }
 
+    public void clearCart(long id) {
+        if (basketRepository.existsById(id)) {
+            basketRepository.clearBasket(id);
+        }
+    }
 
 }
