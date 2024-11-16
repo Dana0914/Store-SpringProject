@@ -7,10 +7,12 @@
 <body>
 
 <h2>Orders</h2>
-<div th:each="o: ${orders}">
-    <p>Product: <span th:text="${orders.product.name}"></span></p>
-    <p>User: <span th:text="${orders.users.firstName + '' + orders.users.lastName}"></span></p>
+<div th:each="order: ${orders}">
+    <p>Status of order: <span th:text="${orders.status}"></span></p>
+    <p>Date of order: <span th:text="${orders.orderDate}"></span></p>
 </div>
+
+
 
 </body>
 </html>

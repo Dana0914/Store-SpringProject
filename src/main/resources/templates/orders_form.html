@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:action="@{/products/basket/address}" method="post" th:object="${orders}">
+<form th:action="@{/products/order/address}" method="post" th:object="${orders}">
     <br> <label for="address">Введите адрес пользователя:</label><br>
     <input type="text" id="address"  th:field="*{address}"  placeholder="type user address" />
     <br>
