@@ -35,7 +35,7 @@ CREATE TABLE values (
 
 CREATE TABLE users (
     id SERIAL4 NOT NULL,
-    role int2 NOT NULL,
+    role VARCHAR(10) NOT NULL CHECK (role IN ('USER', 'ADMIN')),
     email VARCHAR(40) NOT NULL,
     password VARCHAR(40) NOT NULL,
     first_name VARCHAR(20) NOT NULL,
@@ -134,8 +134,8 @@ VALUES (1, 1,'Intel'),
        (7,4,'1920*1080');
 
 INSERT INTO users (role, email, password, first_name, last_name)
-VALUES (1, 'henry08@gmail.com', 'sha-506affbd-kyldsv223', 'henry', 'hetz'),
-       (2, 'saraS566@hotmail.com', 'klj6-gb5d-bng5b', 'sara', 'konnor');
+VALUES ('USER', 'henry08@gmail.com', 'sha-506affbd-kyldsv223', 'henry', 'hetz'),
+       ('ADMIN', 'saraS566@hotmail.com', 'klj6-gb5d-bng5b', 'sara', 'konnor');
 
 INSERT INTO orders (users_id, items_id, status, order_date, address)
 VALUES (1, 2, 1, '2024-7-18', 'New Valley 18 CA');

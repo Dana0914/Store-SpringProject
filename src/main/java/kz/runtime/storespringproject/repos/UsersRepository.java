@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long> {
-    @Query(value = "SELECT * from users u where u.id = :id", nativeQuery = true)
-    Users findUserById(@Param("id") Long id);
+    @Query(value = "SELECT * from users u where u.email = :email", nativeQuery = true)
+    Users findUserByName(@Param("email") String username);
 
 }

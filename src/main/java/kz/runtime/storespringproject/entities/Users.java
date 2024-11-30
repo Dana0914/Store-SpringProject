@@ -11,10 +11,9 @@ import lombok.ToString;
 
 import java.util.List;
 
-
+@Data
 @Getter
 @Setter
-@Data
 @Entity
 @Table(name = "users")
 public class Users {
@@ -23,8 +22,8 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ToString.Exclude
-    @Column(name = "role")
-    private int role;
+    @Enumerated(EnumType.STRING)
+    private List<Role> role;
     @ToString.Exclude
     @Column(name = "email")
     private String email;
