@@ -47,19 +47,12 @@ CREATE TABLE orders (
     id SERIAL4 NOT NULL,
     users_id int4 NOT NULL,
     items_id int4 NOT NULL,
-    status int2 NOT NULL,
-    order_date DATE NOT NULL,
+    status int2 DEFAULT 1,
+    order_date DATE DEFAULT current_date,
     address VARCHAR(40) NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(items_id) REFERENCES items (id)
 );
-
-ALTER TABLE orders
-ALTER COLUMN status SET DEFAULT 1;
-
-ALTER TABLE orders
-    ALTER COLUMN order_date SET DEFAULT current_date;
-
 
 
 CREATE TABLE orders_items (
@@ -146,7 +139,5 @@ VALUES (1, 2);
 INSERT INTO basket (users_id, items_id)
 VALUES (1, 2);
 
-INSERT INTO review (users_id, items_id, rating, review, review_status)
-VALUES (1, 2, 4, 'very good', 'published');
 
 

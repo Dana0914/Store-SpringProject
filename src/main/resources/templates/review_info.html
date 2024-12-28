@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Review Information</title>
+    <title>Review</title>
 </head>
 <body>
 
-<p>Product <span th:text="${product.name}"></span></p>
-<p>User <span th:text="${user.firstName + ' ' + user.lastName}"></span></p>
-<p>Review <span th:text="${review.reviewText}"></span></p>
-<p>Rating <span th:text="${review.rating}"></span></p>
-
-
+<p>Product: <span th:text="${product.name}"></span></p>
+<p>User: <span th:text="${user.firstName + ' ' + user.lastName}"></span></p>
+<p>Review: <span th:text="${review.reviewText}"></span></p>
+<p>Rating: <span th:text="${review.rating}"></span></p>
 
 </body>
 </html>

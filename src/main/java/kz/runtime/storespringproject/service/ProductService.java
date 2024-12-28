@@ -27,12 +27,8 @@ public class ProductService {
     }
 
 
-    public Product createProduct(Product product) {
-        Product save = new Product();
-        save.setName(product.getName());
-        save.setPrice(product.getPrice());
-        save.setCategory(product.getCategory());
-        return productRepository.save(save);
+    public void createProduct(Product product) {
+        productRepository.save(product);
     }
 
 
