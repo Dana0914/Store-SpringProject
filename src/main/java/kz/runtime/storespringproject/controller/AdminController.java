@@ -6,7 +6,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class AdminController {
     public Object getProductCreate(Model model) {
         model.addAttribute("products", new Product());
 
-        return "product_view";
+        return "product_form";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -49,7 +48,7 @@ public class AdminController {
         productService.createProduct(product);
         model.addAttribute("products", product);
 
-        return "result";
+        return "redirect:/products/";
     }
 
 
@@ -64,12 +63,24 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/edit")
-    public Object editProduct(@ModelAttribute Product product, Model model) {
+    public Object updateProduct(@ModelAttribute Product product, Model model) {
         productService.updateProduct(product.getId(), product);
         model.addAttribute("products", product);
 
-        return "result";
+        return "redirect:/products/";
 
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/product/deletion/{id}")
+    public Object deleteProduct(@PathVariable("id") Long id,
+                                @ModelAttribute Product product) {
+        Product productById = productService.findProductById(id);
+        if (productById != null) {
+            productService.deleteProductById(product.getId());
+            return "redirect:/products/all";
+        }
+        throw new RuntimeException("Product not found");
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -99,6 +110,26 @@ public class AdminController {
         model.addAttribute("user", existingUser);
 
         return "review_info";
+    }
+
+    @GetMapping(value = "/reviews")
+    public String getReviews(Model model) {
+        List<Review> reviews = reviewService.findReviews();
+        model.addAttribute("reviews", reviews);
+        return "reviews";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/review/{id}")
+    public Object deleteReviewById(@PathVariable("id") Long id,
+                                @ModelAttribute Review review) {
+
+        Review reviewById = reviewService.findReviewById(id);
+        if (reviewById != null) {
+            reviewService.deleteReviewById(reviewById.getId());
+            return "redirect:/admin/reviews";
+        }
+        throw new RuntimeException("Review not found");
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -131,17 +162,32 @@ public class AdminController {
         model.addAttribute("orders", orders);
 
 
-        return "basket_list";
+        return "cart_list";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/orders")
-    public String getOrderList(Model model) {
+    public String getOrders(Model model) {
         List<Orders> orders = orderService.findAll();
         model.addAttribute("orders", orders);
         return "orders";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/orders/{id}")
+    public String getOrderById(@PathVariable("id") Long id, Model model) {
+        Orders orders = orderService.findById(id);
+        model.addAttribute("orders", orders);
 
+        return "order_edit";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping(value = "/orders/status")
+    public String updateOrderStatus(@ModelAttribute Orders orders, Model model) {
+        orderService.updateOrderStatus(orders.getId(), orders);
+        model.addAttribute("orders", orders);
+        return "redirect:/admin/orders";
+    }
 
 }

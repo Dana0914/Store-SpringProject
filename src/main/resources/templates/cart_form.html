@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Basket Form</title>
+    <title>Cart Form</title>
 </head>
 <body>
 
-<form th:action="@{/products/basket/products}" method="post" th:object="${basket}">
+<form th:action="@{/products/cart/products}" method="post" th:object="${cart}">
 
     <br> <label for="product">Product:</label>
     <input type="number" id="product" th:field="*{product}" placeholder="type product id" /><br/>
 
     <br> <label for="user">User:</label>
     <input type="number" id="user" th:field="*{users}" placeholder="type user id" /><br/>
-    <br> <input type="submit" value="Add to Basket" /> <br>
+    <br> <input type="submit" value="Add to Cart" /> <br>
 
 
 </form>

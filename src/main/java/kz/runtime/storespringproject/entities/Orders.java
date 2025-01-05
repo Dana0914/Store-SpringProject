@@ -21,7 +21,8 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "status", insertable = false)
-    private int status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
     @Column(name = "order_date", insertable = false)
     private Date orderDate;
     @Column(name = "address")

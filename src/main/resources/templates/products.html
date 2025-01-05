@@ -2,18 +2,24 @@
 <html xmlns: th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Products</title>
+    <title>Product List</title>
 </head>
 <body>
 
+<h1>Welcome to Our Product Store</h1>
 
-<div th:each="prod : ${product}">
-    <p>Id: <span th:text="${prod.id}"></span></p>
-    <p>Name: <span th:text="${prod.name}"></span></p>
-    <p>Price: <span th:text="${prod.price}"></span></p>
+<div class="product-container">
+    <div class="product" th:each="prod : ${products}">
+        <p  th:text="${prod.name}"></p>
+        <p  th:text="${prod.price}"></p>
 
-    <a th:href="@{/products/get/edit/{id}(id=${prod.id})}"><button>Edit</button></a>
-    <a th:href="@{/products/info/{id}(id=${prod.id})}"><button>View</button></a>
+        <a th:href="@{/admin/get/edit/{id}(id=${prod.id})}"><button>Edit</button></a>
+        <a th:href="@{/admin/info/{id}(id=${prod.id})}"><button>View</button></a>
+        <a th:href="@{/admin/product/deletion/{id}(id=${prod.id})}"><button>Delete</button></a>
+
+        <a th:href="@{/products/cart/form}"><button>Add to cart</button></a>
+
+    </div>
 </div>
 
 

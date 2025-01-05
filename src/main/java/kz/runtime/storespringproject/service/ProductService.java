@@ -3,6 +3,7 @@ package kz.runtime.storespringproject.service;
 
 import kz.runtime.storespringproject.entities.Product;
 import kz.runtime.storespringproject.repos.ProductRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
     public List<Product> findAll() {
-        return productRepository.findAll();
+        return this.productRepository.findAllProducts();
     }
     public Product findProductById(Long id) {
         return productRepository.findProductById(id);
@@ -34,9 +35,23 @@ public class ProductService {
 
     public Product updateProduct(Long id, Product product) {
         Product productById = findProductById(id);
-        productById.setName(product.getName());
-        productById.setPrice(product.getPrice());
-        return productRepository.save(productById);
+        if (productById != null) {
+            productById.setName(product.getName());
+            productById.setPrice(product.getPrice());
+            return productRepository.save(productById);
+        }
+        return null;
     }
 
+    public Product deleteProductById(Long id) {
+        Product productById = productRepository.findProductById(id);
+        if (productById != null) {
+            productRepository.deleteById(productById.getId());
+        }
+        return productById;
+    }
+
+//    public Page<Product> findPaginated(int pageNo, int pageSize) {
+//
+//    }
 }

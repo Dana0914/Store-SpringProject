@@ -24,8 +24,9 @@
 
 
 <div th:each="review : ${reviews}">
-    <p>User: <span th:text="${review.users.firstName + ' ' + review.users.lastName}"></span></p>
+    <p>User: <span th:text="${review.users.email}"></span></p>
     <p>Review: <span th:text="${review.reviewText}"></span></p>
+    <p>Rate: <span th:text="${review.rating}"></span></p>
 
 
 </div>

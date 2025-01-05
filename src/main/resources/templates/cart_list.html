@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+
+
+
+<br>
+<tr th:each="c : ${cart}">
+    <a th:href="@{/products/cart/{id}(id=${c.users.id})}">Clear the cart</a>
+</tr>
+<br>
+
+
+
+
+<div th:each="c : ${cart}">
+    <p>Product Name: <span th:text="${c.product.name}"></span></p>
+    <p>Price: <span th:text="${c.product.price}"></span></p>
+    <p>User: <span th:text="${c.users.email}"></span></p>
+
+    <br>
+    <p>Quantity: <span th:text="${c.quantity}"></span></p>
+
+
+    <form th:action="@{/products/cart/{id}/inc (id=${c.product.id})}" method="post">
+        <button type="submit">+</button>
+    </form>
+
+    <form th:action="@{/products/cart/{id}/dec(id=${c.product.id})}" method="post">
+        <button type="submit">-</button>
+    </form>
+    <br>
+</div>
+
+
+
+
+<p>Total: <span th:text="${totalAmount}"></span></p>
+
+<br>
+<a th:href="@{/admin/order/form}"><button>Оформить заказ</button></a>
+<br>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews</title>
+</head>
+<body>
+
+
+<div th:each="review: ${reviews}">
+    <p>Product: <span th:text="${review.product.name}"></span></p>
+    <p>Username: <span th:text="${review.users.email}"></span></p>
+    <p>Review: <span th:text="${review.reviewText}"></span></p>
+    <p>Rate: <span th:text="${review.rating}"></span></p>
+
+    <a th:href="@{/admin/review/form}"><button>publish</button></a>
+    <a th:href="@{/admin/review/{id}(id=${review.id})}"><button>delete</button></a>
+</div>
+
+
+</body>
+</html>

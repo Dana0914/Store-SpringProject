@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/products")
-public class ProductViewController {
+public class ProductController {
 
     private final ProductService productService;
     private final ReviewService reviewService;
@@ -23,17 +23,40 @@ public class ProductViewController {
     private final OrderService orderService;
 
     @Autowired
-    public ProductViewController(ProductService productService,
-                                 ReviewService reviewService,
-                                 UsersService usersService,
-                                 BasketService basketService,
-                                 OrderService orderService) {
+    public ProductController(ProductService productService,
+                             ReviewService reviewService,
+                             UsersService usersService,
+                             BasketService basketService,
+                             OrderService orderService) {
         this.productService = productService;
         this.reviewService = reviewService;
         this.usersService = usersService;
         this.basketService = basketService;
         this.orderService = orderService;
     }
+
+    @GetMapping(value = "/")
+    public String homePage(Model model) {
+        List<Product> products = productService.findAll();
+        model.addAttribute("products", products);
+        return "products";
+    }
+
+//    @GetMapping(value = "/page/{pageNo}/{pageSize}")
+//    public String findPaginated(Model model,
+//                                @PathVariable("pageNo") int pageNo,
+//                                @PathVariable("pageSize") int pageSize) {
+//
+//        Page<Product> pages = productService.findPaginated(pageNo, pageSize);
+//        List<Product> products = pages.getContent();
+//
+//        model.addAttribute("currentPage", pageNo);
+//        model.addAttribute("totalPages", pages.getTotalPages());
+//        model.addAttribute("totalItems", pages.getTotalElements());
+//        model.addAttribute("product", products);
+//
+//        return "products";
+//    }
 
     @GetMapping("/info/{id}")
     public Object getProductInfo(@PathVariable("id") Long id, Model model) {
@@ -60,41 +83,33 @@ public class ProductViewController {
     }
 
 
-    @GetMapping(value = "/all")
-    public Object getAllProducts(Model model) {
-        List<Product> all = productService.findAll();
-        model.addAttribute("product", all);
+    @GetMapping("/cart/form")
+    public Object getCartForm(Model model) {
+        model.addAttribute("cart", new Basket());
 
-        return "products";
-    }
-
-    @GetMapping("/basket/form")
-    public Object getBasketForm(Model model) {
-        model.addAttribute("basket", new Basket());
-
-        return "basket_form";
+        return "cart_form";
 
     }
 
-    @PostMapping("/basket/products")
-    public Object addProductToBasket(@ModelAttribute
+    @PostMapping("/cart/products")
+    public Object addItemToCart(@ModelAttribute
             Basket basket, Product product, Users user, Model model) {
 
         basketService.save(basket);
 
-        model.addAttribute("basket", basket);
+        model.addAttribute("cart", basket);
         model.addAttribute("products", product);
         model.addAttribute("user", user);
 
-        return "basket_info";
+        return "redirect:/products/carts";
 
     }
 
 
-    @GetMapping("/basket/list")
+    @GetMapping("/carts")
     public Object getAllBasketProducts(Model model) {
         List<Basket> all = basketService.findAll();
-        model.addAttribute("basket", all);
+        model.addAttribute("cart", all);
 
         long totalAmount = 0L;
 
@@ -104,33 +119,33 @@ public class ProductViewController {
 
         model.addAttribute("totalAmount", totalAmount);
 
-        return "basket_list";
+        return "cart_list";
     }
 
-    @PostMapping("/basket/{id}/quantity")
+    @PostMapping("/cart/{id}/inc")
     public String incrementQuantity(@PathVariable("id") Long id, Model model) {
 
         Basket basket = basketService.incrementQuantityOfProductsInBasket(id);
         model.addAttribute("basket", basket);
 
-        return "basket_result";
+        return "cart_result";
 
     }
 
-    @PostMapping("/basket/{id}")
+    @PostMapping("/cart/{id}/dec")
     public String decrementQuantity(@PathVariable("id") Long id, Model model) {
 
         Basket basket = basketService.decrementQuantityOfProductsInBasket(id);
-        model.addAttribute("basket", basket);
+        model.addAttribute("cart", basket);
 
-        return "basket_result";
+        return "cart_result";
     }
 
 
     @GetMapping(value = "/cart/{id}")
     public Object clearCartItems(@PathVariable("id") long id) {
         basketService.clearCart(id);
-        return "redirect:/products/basket/list";
+        return "redirect:/products/carts";
     }
 
 

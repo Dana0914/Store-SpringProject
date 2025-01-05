@@ -30,7 +30,7 @@ CREATE TABLE values (
     name VARCHAR (20) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (option_id) REFERENCES options (id),
-    FOREIGN KEY (item_id) REFERENCES items (id)
+    FOREIGN KEY (item_id) REFERENCES items (id) ON DELETE CASCADE
 );
 
 CREATE TABLE users (
@@ -47,11 +47,14 @@ CREATE TABLE orders (
     id SERIAL4 NOT NULL,
     users_id int4 NOT NULL,
     items_id int4 NOT NULL,
-    status int2 DEFAULT 1,
+    status VARCHAR(30) NOT NULL DEFAULT 'PENDING' CHECK (status IN ('PENDING',
+                                                  'PROCESSING',
+                                                  'COMPLETED',
+                                                  'CANCELLED')),
     order_date DATE DEFAULT current_date,
     address VARCHAR(40) NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(items_id) REFERENCES items (id)
+    FOREIGN KEY(items_id) REFERENCES items (id) ON DELETE CASCADE
 );
 
 
@@ -60,7 +63,7 @@ CREATE TABLE orders_items (
     items_id INT4 NOT NULL,
     PRIMARY KEY (order_id, items_id),
     FOREIGN KEY(order_id) REFERENCES orders(id),
-    FOREIGN KEY(items_id) REFERENCES items(id)
+    FOREIGN KEY(items_id) REFERENCES items(id) ON DELETE CASCADE
 );
 
 CREATE TABLE basket (
@@ -69,7 +72,7 @@ CREATE TABLE basket (
     items_id int4 NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (users_id) REFERENCES users (id),
-    FOREIGN KEY (items_id) REFERENCES items (id)
+    FOREIGN KEY (items_id) REFERENCES items (id) ON DELETE CASCADE
 
 );
 
@@ -84,9 +87,9 @@ CREATE TABLE review (
     items_id int4 NOT NULL,
     rating smallint NOT NULL CHECK(rating >= 1 AND rating <= 5),
     review TEXT NOT NULL,
-    review_status VARCHAR(30) NOT NULL,
+    review_status VARCHAR(30) NOT NULL CHECK (review_status IN ('PUBLISHED', 'NOT_PUBLISHED', 'CANCELLED')),
     PRIMARY KEY(id),
-    FOREIGN KEY (items_id) REFERENCES items (id),
+    FOREIGN KEY (items_id) REFERENCES items (id) ON DELETE CASCADE ,
     FOREIGN KEY (users_id) REFERENCES users (id)
 );
 
@@ -127,11 +130,11 @@ VALUES (1, 1,'Intel'),
        (7,4,'1920*1080');
 
 INSERT INTO users (role, email, password, first_name, last_name)
-VALUES ('USER', 'henry08@gmail.com', 'sha-506affbd-kyldsv223', 'henry', 'hetz'),
-       ('ADMIN', 'saraS566@hotmail.com', 'klj6-gb5d-bng5b', 'sara', 'konnor');
+VALUES ('USER', 'henry08@gmail.com', 'pass1', 'henry', 'hetz'),
+       ('ADMIN', 'saraS566@hotmail.com', 'pass2', 'sara', 'konnor');
 
 INSERT INTO orders (users_id, items_id, status, order_date, address)
-VALUES (1, 2, 1, '2024-7-18', 'New Valley 18 CA');
+VALUES (1, 2, 'PENDING', '2024-7-18', 'New Valley 18 CA');
 
 INSERT INTO orders_items (order_id, items_id)
 VALUES (1, 2);
@@ -139,5 +142,6 @@ VALUES (1, 2);
 INSERT INTO basket (users_id, items_id)
 VALUES (1, 2);
 
-
+INSERT INTO review (users_id, items_id, rating, review, review_status)
+VALUES (1, 1, 4, 'good', 'PUBLISHED');
 

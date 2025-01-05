@@ -3,6 +3,7 @@ package kz.runtime.storespringproject.service;
 
 
 import kz.runtime.storespringproject.entities.Review;
+import kz.runtime.storespringproject.entities.ReviewStatus;
 import kz.runtime.storespringproject.repos.ProductRepository;
 import kz.runtime.storespringproject.repos.ReviewRepository;
 import kz.runtime.storespringproject.repos.UsersRepository;
@@ -44,14 +45,27 @@ public class ReviewService {
                 .findReviewByUserId(review.getUsers().getId())
                 .orElseThrow();
 
-
         if (reviewRepository.existsById(reviewByUserId.getId())) {
             throw new RuntimeException("Review already exists");
+        }
+
+        if (!review.getReviewStatus().name().equals(ReviewStatus.PUBLISHED.name())) {
+            throw new RuntimeException("Review status is not published");
         }
         reviewRepository.save(review);
     }
 
 
+    public List<Review> findReviews() {
+        List<Review> reviews = reviewRepository.findAll();
+        return reviews;
+    }
 
+    public Review findReviewById(Long id) {
+        return reviewRepository.findById(id).orElseThrow();
+    }
 
+    public void deleteReviewById(Long id) {
+        reviewRepository.deleteById(id);
+    }
 }

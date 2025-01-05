@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:action="@{/products/edit}" method="post" th:object="${products}">
+<form th:action="@{/admin/edit}" method="post" th:object="${products}">
     <br> <label for="id">Id:</label>
     <input type="text" id="id"  th:field="*{id}" placeholder="type id"/><br/>
     <br> <label for="name">Name:</label>

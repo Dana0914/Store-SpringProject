@@ -4,12 +4,14 @@ import kz.runtime.storespringproject.entities.Basket;
 import kz.runtime.storespringproject.repos.BasketRepository;
 import kz.runtime.storespringproject.repos.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
 
 
 @Service
+@Transactional
 public class BasketService {
     private final BasketRepository basketRepository;
     private final ProductRepository productRepository;
@@ -64,7 +66,7 @@ public class BasketService {
         return null;
     }
 
-    public void clearCart(long id) {
+    public void clearCart(Long id) {
         if (basketRepository.existsById(id)) {
             basketRepository.clearBasket(id);
         }

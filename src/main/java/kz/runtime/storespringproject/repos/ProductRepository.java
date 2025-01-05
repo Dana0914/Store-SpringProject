@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findProductByName(String name);
@@ -14,6 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select * from items where id = :id", nativeQuery = true)
     Product findProductById(@Param("id") Long id);
 
-
+    @Query(value = "select * from items", nativeQuery = true)
+    List<Product> findAllProducts();
 
 }

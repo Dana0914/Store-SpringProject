@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Order Page</title>
+    <title>List of Orders</title>
 </head>
 <body>
 
-<h2>Your Orders</h2>
+<h1>Orders</h1>
 <div th:each="order: ${orders}">
     <p>Item: <span th:text="${order.product.name}"></span></p>
-    <p>Status of order: <span th:text="${order.status}"></span></p>
+    <p>Status of order: <span th:text="${order.status.name()}"></span></p>
     <p>Date of order: <span th:text="${order.orderDate}"></span></p>
+
+    <a th:href="@{/admin/orders/{id}(id=${order.id})}"><button>Edit</button></a>
 </div>
 
 

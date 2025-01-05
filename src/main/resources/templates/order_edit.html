@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns: th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Order details</title>
+</head>
+<body>
+
+<form th:action="@{/admin/orders/status}" method="post" th:object="${orders}">
+    <br> <label for="id">Id:</label>
+    <input type="text" id="id"  th:field="*{id}" placeholder="type id"/><br/>
+    <label for="status">Status:</label>
+    <select id="status" th:field="*{status}">
+        <option th:each="status : ${T(kz.runtime.storespringproject.entities.OrderStatus).values()}"
+                th:value="${status}"
+                th:text="${status}">Select status</option>
+    </select>
+    <input type="submit" value="Submit">
+
+</form>
+
+
+</body>
+</html>

@@ -5,7 +5,7 @@
     <title>Review</title>
 
 
-    <form th:action="@{/products/review/info}" method="post" th:object="${review}">
+    <form th:action="@{/admin/review/info}" method="post" th:object="${review}">
         <br> <label for="product">Product:</label>
         <input type="number" id="product"  th:field="*{product.id}"  placeholder="type product ID" /><br/>
 
